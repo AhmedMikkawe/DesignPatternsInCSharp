@@ -12,6 +12,7 @@ namespace SingletonPattern
     {
         public int count = 0;
         private static Counter? instance = null;
+        private static Object lockObj = new();
 
         private Counter() { }
 
@@ -19,7 +20,15 @@ namespace SingletonPattern
         {
             if(instance == null)
             {
-                instance = new Counter();
+                lock (lockObj)
+                {
+                    if (instance == null)
+                    {
+                        instance = new Counter();
+                    }
+                
+                }
+
             }
             return instance;
         }

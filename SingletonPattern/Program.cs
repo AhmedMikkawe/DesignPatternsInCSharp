@@ -5,21 +5,22 @@ namespace SingletonPattern
     {
         public static void Main(string[] args)
         {
-            Counter counter1 = Counter.Create();
-            Counter counter2 = Counter.Create();
-            Console.WriteLine(counter1.count);
-            Console.WriteLine(counter2.count);
 
-            counter1.Add();
-           
+            Task task1 = Task.Factory.StartNew(() =>
+            {
+                Counter counter1 = Counter.Create();
+                counter1.Add();
+                Console.WriteLine(counter1.count);
+            });
 
-            Console.WriteLine(counter1.count);
-            Console.WriteLine(counter2.count);
+            Task task2 = Task.Factory.StartNew(() =>
+            {
+                Counter counter2 = Counter.Create();
+                counter2.Add();
+                Console.WriteLine(counter2.count);
+            });
 
-            counter2.Add();
-
-            Console.WriteLine(counter1.count);
-            Console.WriteLine(counter2.count);
+            Console.ReadKey();
         }
     }
 
